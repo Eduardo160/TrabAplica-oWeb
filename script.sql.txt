@@ -1,0 +1,32 @@
+CREATE TABLE medico (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    crm VARCHAR(20) NOT NULL UNIQUE,
+    especialidade VARCHAR(50) NOT NULL,
+    logradouro VARCHAR(100),
+    numero VARCHAR(10),
+    complemento VARCHAR(50),
+    bairro VARCHAR(50),
+    ativo BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE paciente (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    endereco VARCHAR(255),
+    ativo BOOLEAN DEFAULT true
+);
+
+CREATE TABLE consulta (
+    id BIGSERIAL PRIMARY KEY,
+    paciente_id BIGINT NOT NULL REFERENCES paciente(id),
+    medico_id BIGINT NOT NULL REFERENCES medico(id),
+    data_hora TIMESTAMP NOT NULL,
+    motivo VARCHAR(255),
+    status VARCHAR(20) DEFAULT 'AGENDADA'
+);
